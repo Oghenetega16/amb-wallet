@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── NextAuth required models ──────────────────────────────────────────────
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── User ──────────────────────────────────────────────────────────────────
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  plan          String    @default("free")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts    Account[]
+  sessions    Session[]
+  portfolios  Portfolio[]
+  watchlist   Watchlist[]
+}
+
+// ─── Portfolio ─────────────────────────────────────────────────────────────
+model Portfolio {
+  id          String    @id @default(cuid())
+  userId      String
+  name        String    @default("My Portfolio")
+  description String?
+  isDefault   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  holdings     Holding[]
+  transactions Transaction[]
+}
+
+// ─── Holding ───────────────────────────────────────────────────────────────
+model Holding {
+  id           String   @id @default(cuid())
+  portfolioId  String
+  coinId       String
+  symbol       String
+  name         String
+  quantity     Float
+  avgBuyPrice  Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@unique([portfolioId, coinId])
+}
+
+// ─── Transaction ───────────────────────────────────────────────────────────
+model Transaction {
+  id          String   @id @default(cuid())
+  portfolioId String
+  coinId      String
+  symbol      String
+  type        String   // "buy" | "sell" | "send" | "receive" | "swap"
+  quantity    Float
+  price       Float
+  usdValue    Float
+  fee         Float    @default(0)
+  note        String?
+  txHash      String?
+  cardLast4   String?
+  status      String   @default("completed")
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+}
+
+// ─── Watchlist ─────────────────────────────────────────────────────────────
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  coinId    String
+  symbol    String
+  addedAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, coinId])
+}
