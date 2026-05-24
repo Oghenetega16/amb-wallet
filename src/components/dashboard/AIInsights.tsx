@@ -22,15 +22,15 @@ function parseSection(text: string, heading: string): string {
 }
 
 function SectionCard({ heading, icon: Icon, color, bg, content, streaming }: {
-  heading: string; icon: React.ElementType; color: string; bg: string; content: string; streaming: boolean;
+  heading: string; icon: React.ElementType; color: string;
+  bg: string; content: string; streaming: boolean;
 }) {
   const lines = content.split("\n").map(l => l.replace(/^[•\-]\s*/, "").trim()).filter(Boolean);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: content ? 1 : 0.4, y: 0 }}
+      initial={{ opacity: 0, y: 8 }} animate={{ opacity: content ? 1 : 0.4, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="rounded-xl p-3.5"
+      className="rounded-xl p-3 sm:p-3.5"
       style={{ background: bg, border: `1px solid ${color}22` }}
     >
       <div className="flex items-center gap-2 mb-2">
@@ -136,17 +136,18 @@ export function AIInsights() {
   const hasContent = text.length > 0;
 
   return (
-    <motion.div variants={fadeUp} className="glass-card p-5">
+    <motion.div variants={fadeUp} className="glass-card p-4 sm:p-5">
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center"
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: "linear-gradient(135deg, rgba(79,142,247,0.2), rgba(123,92,240,0.2))", border: "1px solid rgba(79,142,247,0.3)" }}>
             <Sparkles size={15} className="text-accent-blue" />
           </div>
           <div>
             <p className="text-sm font-semibold text-white">AI Insights</p>
             <p className="text-[10px]" style={{ color: "#3d5070" }}>
-              {lastRun ? `Last analysed ${lastRun.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "Powered by Claude"}
+              {lastRun ? `Analysed ${lastRun.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}` : "Powered by Claude"}
             </p>
           </div>
         </div>
@@ -158,17 +159,14 @@ export function AIInsights() {
               </motion.div>
             </motion.button>
           )}
-          <motion.button
-            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.96 }}
-            onClick={runAnalysis}
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.96 }} onClick={runAnalysis}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200"
             style={{
               background: loading ? "rgba(247,95,123,0.1)" : "linear-gradient(135deg, rgba(79,142,247,0.15), rgba(123,92,240,0.15))",
               border: `1px solid ${loading ? "rgba(247,95,123,0.3)" : "rgba(79,142,247,0.3)"}`,
               color: loading ? "#f75f7b" : "#4f8ef7",
-            }}
-          >
-            {loading ? <><Loader2 size={11} className="animate-spin" /> Stop</> : <><Sparkles size={11} /> {hasContent ? "Re-analyse" : "Analyse"}</>}
+            }}>
+            {loading ? <><Loader2 size={11} className="animate-spin" />Stop</> : <><Sparkles size={11} />{hasContent ? "Re-analyse" : "Analyse"}</>}
           </motion.button>
         </div>
       </div>
@@ -178,8 +176,7 @@ export function AIInsights() {
           className="flex items-center gap-2 px-3 py-2 rounded-xl mb-3 text-xs"
           style={{ background: "rgba(247,95,123,0.08)", border: "1px solid rgba(247,95,123,0.2)", color: "#f75f7b" }}>
           <AlertTriangle size={12} />
-          {error === "ANTHROPIC_API_KEY not configured"
-            ? "Add ANTHROPIC_API_KEY to .env.local to enable AI insights." : error}
+          {error === "ANTHROPIC_API_KEY not configured" ? "Add ANTHROPIC_API_KEY to .env.local to enable AI insights." : error}
         </motion.div>
       )}
 
@@ -191,7 +188,7 @@ export function AIInsights() {
           </div>
           <p className="text-sm font-medium text-white mb-1">Portfolio Analysis</p>
           <p className="text-xs max-w-[220px] leading-relaxed" style={{ color: "#6b7fa8" }}>
-            Claude will analyse your holdings, 24h performance, and market conditions to give you actionable insights.
+            Claude analyses your holdings, 24h performance, and market conditions for actionable insights.
           </p>
         </div>
       )}
@@ -200,7 +197,8 @@ export function AIInsights() {
         {(hasContent || loading) && !collapsed && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }}
-            className="grid grid-cols-2 gap-3">
+            /* 1 col on mobile, 2 cols on sm+ */
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {SECTIONS.map(({ heading, icon, color, bg }) => (
               <SectionCard key={heading} heading={heading} icon={icon} color={color} bg={bg}
                 content={parseSection(text, heading)} streaming={loading} />

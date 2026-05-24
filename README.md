@@ -1,46 +1,48 @@
 # AmbWallet — Crypto Portfolio Tracker
 
-A production-grade cryptocurrency portfolio tracker built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, **Framer Motion**, and **Zustand**. Designed to impress recruiters with real-world interactivity, live price simulation, animated transitions, and a polished dark-navy UI.
+> A production-grade, real-time cryptocurrency portfolio dashboard built with Next.js 14, TypeScript, Tailwind CSS, Framer Motion, Zustand, Prisma, and NextAuth.js.
+
+**Live:** [ambwallet.vercel.app](https://ambwallet.vercel.app)
 
 ---
 
 ## ✦ Features
 
-- **Live price ticker** — animated scrolling bar with real-time simulated prices
-- **Portfolio dashboard** — balance cards, sparkline charts, allocation donut, market pulse widget
-- **Coins overview** — sortable asset list with live sparklines and P&L tracking
-- **Transaction history** — filterable by type with status indicators
-- **Statistics chart** — area chart with 1D / 1W / 1M / 3M / 1Y / ALL timeframes
-- **Analytics page** — KPI strip, radar risk profile, monthly P&L bar chart, asset performance bars
-- **Send & Receive modals** — full form validation, fee breakdown, animated QR code
-- **Coin detail modal** — per-asset analytics, mini chart, key stats
-- **Currencies page** — searchable, sortable full coin table with Trade actions
-- **Payments page** — credit card management + full transaction history
-- **Settings page** — toggles for security, notifications, preferences
-- **Help page** — searchable FAQ accordion + live chat CTA
-- **Notifications page** — mark read, delete, real-time notification list
-- **Collapsible sidebar** — with smooth Framer Motion animation
-- **Zustand global store** — with devtools, subscribeWithSelector middleware
-- **TanStack Query** — configured for server-state caching
-- **Page Visibility API** — auto-pauses live price updates when tab is hidden
+| Feature | Stack |
+|---|---|
+| Live price streaming | Binance WebSocket |
+| Real-time charts with timeframe selector | Recharts + CoinGecko API |
+| AI portfolio insights (streaming) | Claude (Anthropic SDK) |
+| Authentication (email + Google OAuth) | NextAuth.js v4 |
+| Persistent portfolio + holdings CRUD | Prisma + SQLite/PostgreSQL |
+| Animated UI + mobile responsive | Framer Motion + Tailwind CSS |
+| Global market stats bar | CoinGecko `/global` endpoint |
+| Portfolio allocation donut | Recharts PieChart |
+| Fear & Greed gauge + top movers | Market Pulse widget |
+| Send/Receive crypto modals | Zustand + DB persistence |
+| Transaction history | Prisma + TanStack Query |
+| Protected routes | Next.js Middleware |
 
 ---
 
 ## ✦ Tech Stack
 
-| Layer         | Technology                                      |
-|---------------|--------------------------------------------------|
-| Framework     | Next.js 14 (App Router)                         |
-| Language      | TypeScript (strict mode)                        |
-| Styling       | Tailwind CSS v3 + custom theme                  |
-| Animation     | Framer Motion 11                                |
-| State (global)| Zustand 4 + devtools + subscribeWithSelector    |
-| Server state  | TanStack React Query 5                          |
-| Charts        | Recharts 2                                      |
-| Icons         | Lucide React                                    |
-| Typography    | Poppins (Google Fonts)                          |
-| Notifications | react-hot-toast                                 |
-| Utilities     | clsx, tailwind-merge, date-fns                  |
+```
+Framework:     Next.js 14 (App Router, RSC)
+Language:      TypeScript (strict)
+Styling:       Tailwind CSS v3
+Animation:     Framer Motion 11
+Global state:  Zustand 4 + devtools
+Server state:  TanStack React Query 5
+Charts:        Recharts 2
+Icons:         Lucide React
+Font:          Poppins (Google Fonts)
+Database:      Prisma ORM + SQLite (dev) / PostgreSQL (prod)
+Auth:          NextAuth.js v4 + bcryptjs
+AI:            Anthropic Claude (claude-sonnet-4)
+Prices:        CoinGecko REST API + Binance WebSocket
+Deployment:    Vercel
+```
 
 ---
 
@@ -48,35 +50,81 @@ A production-grade cryptocurrency portfolio tracker built with **Next.js 14**, *
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
+- npm
 
-### Installation
-
+### 1. Clone and install
 ```bash
-# Clone / download
+git clone https://github.com/yourusername/ambwallet.git
 cd ambwallet
-
-# Install dependencies
 npm install
+```
 
-# Run the dev server
+### 2. Configure environment
+```bash
+cp .env.local.example .env.local
+```
+
+Fill in `.env.local`:
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET="your-secret-min-32-chars"   # openssl rand -base64 32
+NEXTAUTH_URL="http://localhost:3000"
+ANTHROPIC_API_KEY="sk-ant-..."               # console.anthropic.com
+COINGECKO_API_KEY=""                         # optional, free tier works
+```
+
+### 3. Set up database
+```bash
+npx prisma generate
+npx prisma db push
+npm run db:seed
+```
+
+### 4. Run
+```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000)
 
-### Build for production
+**Demo credentials:**
+- Email: `oghenetegasukuru@ambwallet.com`
+- Password: `password123`
 
+---
+
+## ✦ Deploy to Vercel
+
+### 1. Push to GitHub
 ```bash
-npm run build
-npm start
+git init && git add . && git commit -m "feat: initial ambwallet"
+git remote add origin https://github.com/yourusername/ambwallet.git
+git push -u origin main
 ```
 
-### Type check
+### 2. Connect to Vercel
+- Import the repo at [vercel.com/new](https://vercel.com/new)
+- Vercel auto-detects Next.js
 
-```bash
-npm run type-check
+### 3. Add environment variables in Vercel dashboard
 ```
+DATABASE_URL          → PostgreSQL connection string (Vercel Postgres / Neon / Supabase)
+NEXTAUTH_SECRET       → openssl rand -base64 32
+NEXTAUTH_URL          → https://your-app.vercel.app
+ANTHROPIC_API_KEY     → sk-ant-...
+COINGECKO_API_KEY     → (optional)
+```
+
+### 4. Switch to PostgreSQL for production
+In `prisma/schema.prisma`, change:
+```prisma
+datasource db {
+  provider = "postgresql"   // was "sqlite"
+  url      = env("DATABASE_URL")
+}
+```
+
+Then redeploy. Vercel runs `prisma generate && prisma db push` automatically via `vercel.json`.
 
 ---
 
@@ -85,89 +133,68 @@ npm run type-check
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout + font + providers
-│   ├── providers.tsx           # TanStack Query + Toast providers
-│   ├── globals.css             # Tailwind base + global styles
-│   ├── page.tsx                # Dashboard (/)
-│   ├── DashboardClient.tsx     # Dashboard client component
-│   ├── analytics/page.tsx      # Analytics (/analytics)
-│   ├── currencies/page.tsx     # Currencies (/currencies)
-│   ├── payments/page.tsx       # Payments (/payments)
-│   ├── settings/page.tsx       # Settings (/settings)
-│   ├── help/page.tsx           # Help (/help)
-│   └── notifications/page.tsx  # Notifications (/notifications)
-│
+│   ├── (auth)/                  # Sign in, Sign up pages
+│   ├── api/
+│   │   ├── ai/insights/         # Claude streaming endpoint
+│   │   ├── auth/                # NextAuth + register
+│   │   ├── coins/               # CoinGecko proxy (prices + charts)
+│   │   ├── global/              # Market stats proxy
+│   │   └── portfolio/           # Holdings + transactions CRUD
+│   ├── analytics/               # Analytics dashboard
+│   ├── currencies/              # Full coin market view
+│   ├── payments/                # Payment methods + tx log
+│   ├── portfolio/               # Holdings management
+│   ├── settings/                # User preferences
+│   ├── help/                    # FAQ + support
+│   └── notifications/           # Notification centre
 ├── components/
-│   ├── layout/
-│   │   ├── Sidebar.tsx         # Collapsible animated sidebar
-│   │   ├── TopNav.tsx          # Sticky header with search + notifications
-│   │   └── TickerBar.tsx       # Live scrolling price ticker
-│   ├── dashboard/
-│   │   ├── OverallCard.tsx     # Balance, send/receive, mini donuts
-│   │   ├── CoinsCard.tsx       # Holdings with live sparklines
-│   │   ├── HistoryCard.tsx     # Filterable transaction history
-│   │   ├── StatsChart.tsx      # Area chart with TF switcher
-│   │   ├── PortfolioAllocation.tsx  # Interactive donut + legend
-│   │   └── MarketPulse.tsx     # Fear/greed gauge + top movers
-│   └── modals/
-│       ├── SendModal.tsx       # Full send form with validation
-│       ├── ReceiveModal.tsx    # QR code + copy address
-│       └── CoinDetailModal.tsx # Per-coin analytics modal
-│
-├── store/
-│   └── walletStore.ts          # Zustand store (coins, txs, UI, actions)
-│
-├── hooks/
-│   └── useLivePrices.ts        # SetInterval price ticker + Page Visibility
-│
-├── lib/
-│   ├── mockData.ts             # Seed data, chart data, formatters
-│   └── utils.ts                # cn(), formatters, Framer variants
-│
-└── types/
-    └── index.ts                # Shared TypeScript interfaces
+│   ├── dashboard/               # All dashboard widgets
+│   ├── layout/                  # Sidebar, TopNav, TickerBar
+│   ├── modals/                  # Send, Receive, CoinDetail, AddHolding
+│   └── ui/                      # Skeleton, ErrorState, UserMenu, WsStatus
+├── hooks/                       # useCoins, usePortfolio, useBinanceWebSocket…
+├── store/                       # Zustand wallet store
+├── lib/                         # Prisma client, utils, mockData, API helpers
+├── types/                       # TypeScript interfaces
+└── middleware.ts                 # Route protection
+prisma/
+├── schema.prisma                # DB schema
+└── seed.ts                      # Demo data
 ```
 
 ---
 
-## ✦ Connecting Real Data
+## ✦ Architecture Notes
 
-To replace mock data with live prices:
+**Data flow:**
+1. On mount, `useCoins` fetches CoinGecko via `/api/coins`, hydrates Zustand store
+2. `useBinanceWebSocket` opens a multi-stream WS connection → pushes price ticks into store via `updateCoinPriceById`
+3. All UI reads from Zustand — single source of truth, zero prop drilling
+4. Portfolio data (`usePortfolio`) fetches from the DB and enriches each holding with live prices from Zustand
+5. AI Insights builds a prompt from real portfolio state and streams Claude's response token by token
 
-1. Sign up for [Polygon.io](https://polygon.io) or [CoinGecko](https://coingecko.com/api) (free tier available)
-2. Add your API key to `.env.local`:
-   ```
-   NEXT_PUBLIC_COINGECKO_API_KEY=your_key_here
-   ```
-3. Create a `src/lib/api.ts` with a TanStack Query fetch using `useQuery`
-4. Replace `useLivePrices` mock with a real WebSocket connection (Polygon.io offers crypto WebSocket feeds)
-
----
-
-## ✦ Deployment
-
-### Vercel (recommended)
-```bash
-npm install -g vercel
-vercel
-```
-
-Add environment variables in the Vercel dashboard.
+**Auth flow:**
+1. `middleware.ts` protects all routes — unauthenticated requests redirect to `/auth/signin`
+2. NextAuth JWT strategy — session data available client-side without DB round-trips
+3. `SessionProvider` wraps the app — `useSession()` available everywhere
 
 ---
 
-## ✦ Week-by-Week Build Plan
+## ✦ Portfolio Piece Write-up
 
-| Week | Focus |
-|------|-------|
-| 1 ✅ | Project setup, layout, dashboard cards, mock data, Zustand store |
-| 2    | Real API integration (CoinGecko/Polygon.io), WebSocket ticker |
-| 3    | Auth (NextAuth), persistent user portfolio, server-side data |
-| 4    | AI insights panel (Claude API), rebalancing suggestions |
-| 5    | Polish, mobile responsiveness, deploy, README, case study |
+**Problem:** Most crypto trackers are either too simple (just price lists) or too complex (full trading platforms). AmbWallet fills the middle — a professional portfolio manager with real-time data, AI insights, and persistent user accounts.
+
+**Technical depth:**
+- WebSocket reconnection with exponential back-off and Page Visibility API pause
+- Streaming AI responses parsed into structured sections client-side, with per-token animation
+- Zustand store with `recomputePortfolio` runs on every price tick — O(n) where n = holdings count
+- All external API calls are proxied server-side to protect keys and add cache headers
+- Prisma upsert pattern for holdings ensures idempotent updates
+
+**What it demonstrates:** Full-stack ownership — from database schema to WebSocket management to streamed AI integration to responsive UI — in a single cohesive product.
 
 ---
 
 ## ✦ License
 
-MIT — free to use for your portfolio.
+MIT

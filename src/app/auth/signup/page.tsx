@@ -99,7 +99,7 @@ export default function SignUpPage() {
             <div className="relative">
               <User size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: "#3d5070" }} />
               <input type="text" value={name} onChange={(e) => setName(e.target.value)}
-                required placeholder="John Doe" className="field-input pl-10" />
+                required placeholder="Oghenetega Sukuru" className="field-input pl-10" />
             </div>
           </div>
 

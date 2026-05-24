@@ -92,12 +92,12 @@ export default function AnalyticsPage() {
         <TickerBar />
         <TopNav title="Analytics" subtitle="Portfolio performance & risk metrics" />
 
-        <main className="flex-1 overflow-y-auto px-5 py-4">
+        <main className="flex-1 overflow-y-auto px-3 md:px-5 py-4">
           <motion.div variants={staggerContainer} initial="hidden" animate="show"
-            className="max-w-[1400px] mx-auto flex flex-col gap-4">
+            className="max-w-[1400px] mx-auto flex flex-col gap-4 px-3 md:px-0">
 
             {/* KPI strip */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
               {coinsLoading
                 ? Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
                 : [
@@ -121,7 +121,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Row: real chart + radar */}
-            <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 280px" }}>
+            <div className="grid gap-4" className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
 
               {/* Real price chart */}
               <motion.div variants={fadeUp} className="glass-card p-5">
@@ -247,7 +247,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Row: Monthly P&L + Top movers */}
-            <div className="grid gap-4" style={{ gridTemplateColumns: "1fr 1fr" }}>
+            <div className="grid gap-4" className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <motion.div variants={fadeUp} className="glass-card p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-white">Monthly P&L</h3>

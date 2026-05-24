@@ -172,8 +172,8 @@ export const CHART_DATA: Record<Timeframe, ChartPoint[]> = {
 
 // ─── Payment Cards ──────────────────────────────────────────────────────────
 export const PAYMENT_CARDS: PaymentCard[] = [
-  { id: "card1", last4: "3919", brand: "visa",       expiry: "09/27", holder: "John Doe", isDefault: true },
-  { id: "card2", last4: "5541", brand: "mastercard", expiry: "04/26", holder: "John Doe", isDefault: false },
+  { id: "card1", last4: "3919", brand: "visa",       expiry: "09/27", holder: "Oghenetega Sukuru", isDefault: true },
+  { id: "card2", last4: "5541", brand: "mastercard", expiry: "04/26", holder: "Oghenetega Sukuru", isDefault: false },
 ];
 
 // ─── Format helpers ────────────────────────────────────────────────────────

@@ -46,7 +46,7 @@ export default function NotificationsPage() {
         <TopNav title="Notifications" subtitle={`${unread} unread`} />
 
         <main className="flex-1 overflow-y-auto px-5 py-4">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto px-0">
 
             {/* Toolbar */}
             <div className="flex items-center justify-between mb-4">

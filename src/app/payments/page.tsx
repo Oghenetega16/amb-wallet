@@ -32,8 +32,8 @@ export default function PaymentsPage() {
       <div className="flex flex-col flex-1 min-w-0 relative z-10 overflow-hidden">
         <TickerBar />
         <TopNav title="Payments" subtitle="Manage your cards & transactions" />
-        <main className="flex-1 overflow-y-auto px-6 py-5">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-5">
+        <main className="flex-1 overflow-y-auto px-3 md:px-6 py-4">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
 
             {/* Left — Cards */}
             <div className="flex flex-col gap-4">

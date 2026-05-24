@@ -95,7 +95,7 @@ export default function SettingsPage() {
         <main className="flex-1 overflow-y-auto px-5 py-4">
           <motion.div
             variants={staggerContainer} initial="hidden" animate="show"
-            className="max-w-3xl mx-auto flex flex-col gap-4"
+            className="max-w-3xl mx-auto flex flex-col gap-4 px-0"
           >
 
             {/* Profile */}
@@ -103,14 +103,14 @@ export default function SettingsPage() {
               <div className="relative">
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white"
                   style={{ background: "linear-gradient(135deg,#4f8ef7,#7b5cf0)" }}>
-                  JD
+                  OS
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-accent-green border-2"
                   style={{ borderColor: "#060d1f" }} />
               </div>
               <div className="flex-1">
-                <p className="text-base font-bold text-white">John Doe</p>
-                <p className="text-xs" style={{ color: "#6b7fa8" }}>john.doe@example.com</p>
+                <p className="text-base font-bold text-white">Oghenetega Sukuru</p>
+                <p className="text-xs" style={{ color: "#6b7fa8" }}>oghenetegasukuru@ambwallet.com</p>
                 <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1.5"
                   style={{ background: "rgba(79,142,247,0.15)", color: "#4f8ef7" }}>
                   ✦ Premium Plan

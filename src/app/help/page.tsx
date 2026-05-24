@@ -70,7 +70,7 @@ export default function HelpPage() {
         <main className="flex-1 overflow-y-auto px-5 py-4">
           <motion.div
             variants={staggerContainer} initial="hidden" animate="show"
-            className="max-w-3xl mx-auto flex flex-col gap-5"
+            className="max-w-3xl mx-auto flex flex-col gap-5 px-0"
           >
 
             {/* Search */}
@@ -85,7 +85,7 @@ export default function HelpPage() {
             </motion.div>
 
             {/* Quick links */}
-            <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <motion.div variants={fadeUp} className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { icon: BookOpen,        label: "Getting Started",  color: "#4f8ef7", bg: "rgba(79,142,247,0.1)" },
                 { icon: Shield,          label: "Security",         color: "#22d3a5", bg: "rgba(34,211,165,0.1)" },
