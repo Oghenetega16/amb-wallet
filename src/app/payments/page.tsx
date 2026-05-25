@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CreditCard, Plus, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, Wifi } from "lucide-react";
-import { Sidebar }   from "@/components/layout/Sidebar";
-import { TopNav }    from "@/components/layout/TopNav";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { TopNav } from "@/components/layout/TopNav";
 import { TickerBar } from "@/components/layout/TickerBar";
 import { SendModal } from "@/components/modals/SendModal";
 import { ReceiveModal } from "@/components/modals/ReceiveModal";
@@ -14,16 +14,16 @@ import { useCoins } from "@/hooks/useCoins";
 import { useBinanceWebSocket } from "@/hooks/useBinanceWebSocket";
 
 const CARD_GRADIENTS: Record<string, string> = {
-  visa:       "linear-gradient(135deg, #0d1e42 0%, #1e3a7e 100%)",
+  visa: "linear-gradient(135deg, #0d1e42 0%, #1e3a7e 100%)",
   mastercard: "linear-gradient(135deg, #1a0d2e 0%, #6c1e7e 100%)",
-  amex:       "linear-gradient(135deg, #0d2e1e 0%, #0d6e4e 100%)",
+  amex: "linear-gradient(135deg, #0d2e1e 0%, #0d6e4e 100%)",
 };
 
 export default function PaymentsPage() {
   useCoins();
   useBinanceWebSocket();
   const transactions = useWalletStore((s) => s.transactions);
-  const cards        = useWalletStore((s) => s.paymentCards);
+  const cards = useWalletStore((s) => s.paymentCards);
   const [activeCard, setActiveCard] = useState(cards[0]?.id);
 
   return (

@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        sans:     ["DM Sans", "sans-serif"],
+        "dm-sans":["DM Sans", "sans-serif"],
       },
       colors: {
         navy: {
@@ -26,9 +27,9 @@ const config: Config = {
         },
         surface: {
           DEFAULT: "#0d1730",
-          2: "#111f3a",
-          3: "#162448",
-          4: "#1a2a50",
+          2:       "#111f3a",
+          3:       "#162448",
+          4:       "#1a2a50",
         },
         accent: {
           blue:   "#4f8ef7",
@@ -45,30 +46,26 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        "gradient-navy":   "linear-gradient(135deg, #060d1f 0%, #0d1730 100%)",
-        "gradient-card":   "linear-gradient(135deg, rgba(79,142,247,0.06) 0%, transparent 60%)",
-        "gradient-blue":   "linear-gradient(135deg, #4f8ef7, #7b5cf0)",
-        "gradient-green":  "linear-gradient(135deg, #22d3a5, #38bdf8)",
-        "glow-blue":       "radial-gradient(circle, rgba(79,142,247,0.15) 0%, transparent 70%)",
-        "glow-purple":     "radial-gradient(circle, rgba(123,92,240,0.12) 0%, transparent 70%)",
+        "gradient-navy":  "linear-gradient(135deg, #060d1f 0%, #0d1730 100%)",
+        "gradient-card":  "linear-gradient(135deg, rgba(79,142,247,0.06) 0%, transparent 60%)",
+        "gradient-blue":  "linear-gradient(135deg, #4f8ef7, #7b5cf0)",
+        "gradient-green": "linear-gradient(135deg, #22d3a5, #38bdf8)",
       },
       boxShadow: {
-        "blue-glow":   "0 4px 20px rgba(79,142,247,0.4)",
-        "green-glow":  "0 4px 20px rgba(34,211,165,0.35)",
-        "card":        "0 2px 24px rgba(0,0,0,0.3)",
-        "card-hover":  "0 8px 40px rgba(0,0,0,0.5)",
+        "blue-glow":  "0 4px 20px rgba(79,142,247,0.4)",
+        "green-glow": "0 4px 20px rgba(34,211,165,0.35)",
+        card:         "0 2px 24px rgba(0,0,0,0.3)",
+        "card-hover": "0 8px 40px rgba(0,0,0,0.5)",
       },
       animation: {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "drift-a":    "driftA 18s ease-in-out infinite alternate",
-        "drift-b":    "driftB 22s ease-in-out infinite alternate",
-        "ticker":     "ticker 30s linear infinite",
-        "spin-slow":  "spin 8s linear infinite",
+        ticker:       "ticker 30s linear infinite",
       },
       keyframes: {
-        driftA: { to: { transform: "translate(80px, 60px)" } },
-        driftB: { to: { transform: "translate(-60px, -80px)" } },
-        ticker: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
+        ticker: {
+          "0%":   { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       borderRadius: {
         "2xl": "1rem",

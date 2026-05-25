@@ -121,7 +121,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Row: real chart + radar */}
-            <div className="grid gap-4" className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-4">
 
               {/* Real price chart */}
               <motion.div variants={fadeUp} className="glass-card p-5">
@@ -202,9 +202,9 @@ export default function AnalyticsPage() {
                           </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-                        <XAxis dataKey="time" tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "Poppins" }}
+                        <XAxis dataKey="time" tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "DM Sans" }}
                           axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                        <YAxis tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "Poppins" }}
+                        <YAxis tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "DM Sans" }}
                           axisLine={false} tickLine={false} width={56}
                           tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v.toFixed(2)}`}
                           domain={["auto", "auto"]} />
@@ -230,7 +230,7 @@ export default function AnalyticsPage() {
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={RADAR_DATA} cx="50%" cy="50%" outerRadius="70%">
                       <PolarGrid stroke="rgba(255,255,255,0.06)" />
-                      <PolarAngleAxis dataKey="axis" tick={{ fill: "#6b7fa8", fontSize: 9, fontFamily: "Poppins" }} />
+                      <PolarAngleAxis dataKey="axis" tick={{ fill: "#6b7fa8", fontSize: 9, fontFamily: "DM Sans" }} />
                       <Radar name="Portfolio" dataKey="value" stroke="#4f8ef7" strokeWidth={1.5} fill="rgba(79,142,247,0.15)" />
                     </RadarChart>
                   </ResponsiveContainer>
@@ -247,7 +247,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Row: Monthly P&L + Top movers */}
-            <div className="grid gap-4" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <motion.div variants={fadeUp} className="glass-card p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-sm font-semibold text-white">Monthly P&L</h3>
@@ -260,8 +260,8 @@ export default function AnalyticsPage() {
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={PNL_MONTHS} margin={{ top: 4, right: 0, left: -28, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
-                      <XAxis dataKey="m" tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "Poppins" }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "Poppins" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
+                      <XAxis dataKey="m" tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "DM Sans" }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: "#3d5070", fontSize: 10, fontFamily: "DM Sans" }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
                       <ReferenceLine y={0} stroke="rgba(255,255,255,0.1)" />
                       <Tooltip content={({ active, payload, label }) =>
                         active && payload?.length ? (

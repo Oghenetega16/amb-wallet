@@ -67,7 +67,7 @@ function SidebarContent({
 
         {/* Close button — mobile only */}
         {isMobile && (
-          <button onClick={toggleSidebar} className="ml-auto btn-icon">
+          <button aria-label="Close button" onClick={toggleSidebar} className="ml-auto btn-icon">
             <X size={15} />
           </button>
         )}
@@ -75,6 +75,7 @@ function SidebarContent({
         {/* Collapse toggle — desktop only */}
         {!isMobile && (
           <button
+            aria-label="Toggle button"
             onClick={toggleSidebar}
             className={cn(
               "absolute -right-3 top-12 w-6 h-6 rounded-full border flex items-center justify-center",

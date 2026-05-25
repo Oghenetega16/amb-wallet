@@ -1,17 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ─── Tailwind v4 directive ────────────────────────────────────────────── */
+@import "tailwindcss";
 
-/* ─── Base ──────────────────────────────────────────────────────────────── */
+/* ─── Theme Configuration ──────────────────────────────────────────────── */
+@theme {
+  --color-navy-50: #e8edf8;
+  --color-accent-blue: #4f8ef7;
+  --color-accent-green: #22d3a5;
+
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    --bg:        #060d1f;
-    --surface:   #0d1730;
+    --bg: #060d1f;
+    --surface: #0d1730;
     --surface-2: #111f3a;
     --surface-3: #162448;
-    --border:    rgba(255, 255, 255, 0.07);
-    --border-2:  rgba(255, 255, 255, 0.13);
+    --border: rgba(255, 255, 255, 0.07);
+    --border-2: rgba(255, 255, 255, 0.13);
   }
 
   html {
@@ -20,7 +27,7 @@
   }
 
   body {
-    @apply font-poppins text-navy-50 antialiased;
+    @apply font-sans text-navy-50 antialiased;
     background: var(--bg);
     min-height: 100vh;
   }
@@ -32,13 +39,16 @@
   ::-webkit-scrollbar {
     @apply w-1.5;
   }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply rounded-full;
     background: rgba(255, 255, 255, 0.1);
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.18);
   }
@@ -52,150 +62,177 @@
   }
 }
 
-/* ─── Components ────────────────────────────────────────────────────────── */
+/* ─── Components ───────────────────────────────────────────────────────── */
 @layer components {
+
   /* Glass card */
   .glass-card {
     @apply relative overflow-hidden rounded-2xl border;
     background: var(--surface);
     border-color: var(--border);
-    background-image: linear-gradient(135deg, rgba(79,142,247,0.04) 0%, transparent 60%);
+    background-image: linear-gradient(135deg, rgba(79, 142, 247, 0.04) 0%, transparent 60%);
   }
+
   .glass-card:hover {
     border-color: var(--border-2);
   }
 
-  /* Subtle inner highlight on card top-left */
   .glass-card::before {
     content: "";
     @apply pointer-events-none absolute inset-0 rounded-2xl;
-    background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
   }
 
   /* Nav link */
   .nav-link {
-    @apply relative flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
-           transition-all duration-200 cursor-pointer select-none;
+    @apply relative flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer select-none;
     color: #6b7fa8;
   }
+
   .nav-link:hover {
     @apply text-navy-50 bg-white/[0.05];
   }
+
   .nav-link.active {
     @apply text-accent-blue;
-    background: rgba(79,142,247,0.1);
+    background: rgba(79, 142, 247, 0.1);
   }
+
   .nav-link.active::before {
     content: "";
     @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full;
     background: #4f8ef7;
   }
 
-  /* Primary button */
+  /* Buttons */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5
-           text-sm font-semibold text-white transition-all duration-200
-           focus:outline-none focus:ring-2 focus:ring-accent-blue/50
-           active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-blue/50 active:scale-95;
     background: linear-gradient(135deg, #4f8ef7, #6c5ff5);
-    box-shadow: 0 4px 16px rgba(79,142,247,0.35);
+    box-shadow: 0 4px 16px rgba(79, 142, 247, 0.35);
   }
+
   .btn-primary:hover {
-    box-shadow: 0 6px 24px rgba(79,142,247,0.5);
+    box-shadow: 0 6px 24px rgba(79, 142, 247, 0.5);
     filter: brightness(1.08);
   }
 
-  /* Secondary button */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5
-           text-sm font-semibold text-navy-50 transition-all duration-200
-           border focus:outline-none active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-navy-50 transition-all duration-200 border focus:outline-none active:scale-95;
     background: var(--surface-2);
     border-color: var(--border-2);
   }
+
   .btn-secondary:hover {
     @apply border-accent-blue text-accent-blue;
   }
 
-  /* Icon button */
   .btn-icon {
-    @apply flex items-center justify-center w-8 h-8 rounded-lg
-           border transition-all duration-200 cursor-pointer text-[#6b7fa8];
+    @apply flex items-center justify-center w-8 h-8 rounded-lg border transition-all duration-200 cursor-pointer;
+    color: #6b7fa8;
     background: var(--surface-2);
     border-color: var(--border);
   }
+
   .btn-icon:hover {
     @apply border-accent-blue text-accent-blue;
   }
 
-  /* Live badge */
+  /* Badges */
   .live-badge {
     @apply flex items-center gap-1.5 text-xs font-medium text-accent-green;
   }
+
   .live-dot {
     @apply w-1.5 h-1.5 rounded-full bg-accent-green;
     animation: livePulse 1.8s ease-in-out infinite;
   }
 
-  /* Positive / Negative pills */
   .badge-up {
     @apply inline-flex items-center gap-0.5 text-xs font-semibold px-2 py-0.5 rounded-full;
-    background: rgba(34,211,165,0.12);
+    background: rgba(34, 211, 165, 0.12);
     color: #22d3a5;
   }
+
   .badge-down {
     @apply inline-flex items-center gap-0.5 text-xs font-semibold px-2 py-0.5 rounded-full;
-    background: rgba(247,95,123,0.12);
+    background: rgba(247, 95, 123, 0.12);
     color: #f75f7b;
   }
 
-  /* Field */
+  /* Form input */
   .field-input {
-    @apply w-full rounded-xl px-4 py-3 text-sm text-navy-50 outline-none
-           transition-all duration-200 border;
+    @apply w-full rounded-xl px-4 py-3 text-sm text-navy-50 outline-none transition-all duration-200 border;
     background: var(--surface-2);
     border-color: var(--border);
   }
+
   .field-input:focus {
     @apply border-accent-blue;
-    box-shadow: 0 0 0 3px rgba(79,142,247,0.15);
+    box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.15);
   }
+
   .field-input::placeholder {
     color: #3d5070;
   }
 }
 
-/* ─── Utilities ─────────────────────────────────────────────────────────── */
+/* ─── Utilities ────────────────────────────────────────────────────────── */
 @layer utilities {
   .text-gradient-blue {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #4f8ef7, #7b5cf0);
   }
+
   .text-gradient-green {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #22d3a5, #38bdf8);
   }
+
   .border-glow-blue {
-    box-shadow: 0 0 0 1px rgba(79,142,247,0.4), 0 0 16px rgba(79,142,247,0.15);
+    box-shadow: 0 0 0 1px rgba(79, 142, 247, 0.4), 0 0 16px rgba(79, 142, 247, 0.15);
   }
 }
 
-/* ─── Keyframes ─────────────────────────────────────────────────────────── */
+/* ─── Keyframes ────────────────────────────────────────────────────────── */
 @keyframes livePulse {
-  0%, 100% { opacity: 1;   transform: scale(1); }
-  50%       { opacity: 0.3; transform: scale(0.75); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scale(0.75);
+  }
 }
 
 @keyframes ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position:  200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* Recharts overrides */
-.recharts-tooltip-wrapper { outline: none !important; }
-.recharts-surface { overflow: visible; }
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.recharts-surface {
+  overflow: visible;
+}

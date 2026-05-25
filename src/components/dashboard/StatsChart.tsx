@@ -154,10 +154,10 @@ export function StatsChart() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
               <XAxis dataKey="time"
-                tick={{ fill: "#3d5070", fontSize: 11, fontFamily: "Poppins" }}
+                tick={{ fill: "#3d5070", fontSize: 11, fontFamily: "DM Sans" }}
                 axisLine={false} tickLine={false} interval="preserveStartEnd" />
               <YAxis
-                tick={{ fill: "#3d5070", fontSize: 11, fontFamily: "Poppins" }}
+                tick={{ fill: "#3d5070", fontSize: 11, fontFamily: "DM Sans" }}
                 axisLine={false} tickLine={false}
                 tickFormatter={(v) => v >= 1000 ? `$${(v / 1000).toFixed(0)}k` : `$${v.toFixed(2)}`}
                 domain={["auto", "auto"]}

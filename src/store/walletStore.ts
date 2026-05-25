@@ -6,32 +6,32 @@ import { COINS, TRANSACTIONS, PORTFOLIO, PAYMENT_CARDS } from "@/lib/mockData";
 export type WsStatus = "idle" | "connecting" | "connected" | "disconnected" | "error" | "failed" | "paused";
 
 interface WalletState {
-  coins:        Coin[];
+  coins: Coin[];
   transactions: Transaction[];
-  portfolio:    Portfolio;
+  portfolio: Portfolio;
   paymentCards: PaymentCard[];
-  activeModal:       ModalType;
-  selectedCoin:      Coin | null;
+  activeModal: ModalType;
+  selectedCoin: Coin | null;
   selectedTimeframe: Timeframe;
-  txFilter:          "all" | "sent" | "received";
-  isSidebarOpen:     boolean;
-  isLiveUpdating:    boolean;
-  wsStatus:          WsStatus;
-  isDataLoading:     boolean;
+  txFilter: "all" | "sent" | "received";
+  isSidebarOpen: boolean;
+  isLiveUpdating: boolean;
+  wsStatus: WsStatus;
+  isDataLoading: boolean;
 
-  setCoins:            (coins: Coin[]) => void;
+  setCoins: (coins: Coin[]) => void;
   updateCoinPriceById: (id: string, patch: { price: number; priceChange24h: number; priceChangePct24h: number }) => void;
-  setWsStatus:         (status: WsStatus) => void;
-  setDataLoading:      (loading: boolean) => void;
-  updateCoinPrice:     (id: string, newPrice: number) => void;
-  tickAllPrices:       () => void;
-  addTransaction:      (tx: Omit<Transaction, "id">) => void;
-  openModal:           (modal: ModalType, coin?: Coin) => void;
-  closeModal:          () => void;
-  setTimeframe:        (tf: Timeframe) => void;
-  setTxFilter:         (filter: "all" | "sent" | "received") => void;
-  toggleSidebar:       () => void;
-  toggleLiveUpdating:  () => void;
+  setWsStatus: (status: WsStatus) => void;
+  setDataLoading: (loading: boolean) => void;
+  updateCoinPrice: (id: string, newPrice: number) => void;
+  tickAllPrices: () => void;
+  addTransaction: (tx: Omit<Transaction, "id">) => void;
+  openModal: (modal: ModalType, coin?: Coin) => void;
+  closeModal: () => void;
+  setTimeframe: (tf: Timeframe) => void;
+  setTxFilter: (filter: "all" | "sent" | "received") => void;
+  toggleSidebar: () => void;
+  toggleLiveUpdating: () => void;
 }
 
 function recomputePortfolio(coins: Coin[], prev: Portfolio): Portfolio {
@@ -42,7 +42,7 @@ function recomputePortfolio(coins: Coin[], prev: Portfolio): Portfolio {
     totalValue,
     change24h,
     change24hPct: totalValue > 0 ? (change24h / Math.max(1, totalValue - change24h)) * 100 : 0,
-    totalPnL:     totalValue - prev.totalCost,
+    totalPnL: totalValue - prev.totalCost,
     totalPnLPct:  prev.totalCost > 0 ? ((totalValue - prev.totalCost) / prev.totalCost) * 100 : 0,
   };
 }
@@ -69,7 +69,7 @@ export const useWalletStore = create<WalletState>()(
           return { coins, portfolio: recomputePortfolio(coins, s.portfolio) };
         }),
 
-      setWsStatus:    (wsStatus)      => set({ wsStatus }),
+      setWsStatus: (wsStatus) => set({ wsStatus }),
       setDataLoading: (isDataLoading) => set({ isDataLoading }),
 
       updateCoinPrice: (id, newPrice) =>
@@ -107,11 +107,11 @@ export const useWalletStore = create<WalletState>()(
   )
 );
 
-export const selectTopCoins     = (s: WalletState) => s.coins.slice(0, 4);
-export const selectAllCoins     = (s: WalletState) => s.coins;
-export const selectPortfolio    = (s: WalletState) => s.portfolio;
-export const selectWsStatus     = (s: WalletState) => s.wsStatus;
-export const selectIsLoading    = (s: WalletState) => s.isDataLoading;
+export const selectTopCoins = (s: WalletState) => s.coins.slice(0, 4);
+export const selectAllCoins = (s: WalletState) => s.coins;
+export const selectPortfolio = (s: WalletState) => s.portfolio;
+export const selectWsStatus = (s: WalletState) => s.wsStatus;
+export const selectIsLoading = (s: WalletState) => s.isDataLoading;
 export const selectTransactions = (s: WalletState) => {
   if (s.txFilter === "all") return s.transactions;
   return s.transactions.filter((t) =>

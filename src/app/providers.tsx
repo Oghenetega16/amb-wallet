@@ -31,7 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               color:       "#e8edf8",
               border:      "1px solid rgba(79,142,247,0.3)",
               borderRadius: "12px",
-              fontFamily:  "Poppins, sans-serif",
+              fontFamily: "DM Sans, sans-serif",
               fontSize:    "13px",
               padding:     "12px 16px",
             },

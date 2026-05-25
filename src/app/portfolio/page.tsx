@@ -7,19 +7,19 @@ import {
   RefreshCw, BarChart2, Loader2, ArrowUpRight, ArrowDownLeft, ArrowLeftRight,
 } from "lucide-react";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
-import { Sidebar }         from "@/components/layout/Sidebar";
-import { TopNav }          from "@/components/layout/TopNav";
-import { TickerBar }       from "@/components/layout/TickerBar";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { TopNav } from "@/components/layout/TopNav";
+import { TickerBar } from "@/components/layout/TickerBar";
 import { GlobalMarketBar } from "@/components/dashboard/GlobalMarketBar";
 import { AddHoldingModal } from "@/components/modals/AddHoldingModal";
-import { SendModal }       from "@/components/modals/SendModal";
+import { SendModal } from "@/components/modals/SendModal";
 import { CoinDetailModal } from "@/components/modals/CoinDetailModal";
 import { CoinRowSkeleton, TxRowSkeleton } from "@/components/ui/Skeleton";
-import { ErrorState }      from "@/components/ui/ErrorState";
-import { usePortfolio }    from "@/hooks/usePortfolio";
-import { useBinanceWebSocket }        from "@/hooks/useBinanceWebSocket";
+import { ErrorState } from "@/components/ui/ErrorState";
+import { usePortfolio } from "@/hooks/usePortfolio";
+import { useBinanceWebSocket } from "@/hooks/useBinanceWebSocket";
 import { usePrefetchCoins, useCoins } from "@/hooks/useCoins";
-import { useQueryClient }             from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { formatCurrency, formatPercent, formatDate, staggerContainer, fadeUp } from "@/lib/utils";
 import toast from "react-hot-toast";
 import type { EnrichedHolding } from "@/hooks/usePortfolio";
@@ -29,9 +29,9 @@ export default function PortfolioPage() {
   const qc = useQueryClient();
   const { holdings, transactions, totalValue, totalPnL, totalPnLPct, isLoading, isError, refetch } = usePortfolio();
   const [showAddModal, setShowAddModal] = useState(false);
-  const [editHolding,  setEditHolding]  = useState<EnrichedHolding | null>(null);
-  const [deletingId,   setDeletingId]   = useState<string | null>(null);
-  const [activeTab,    setActiveTab]    = useState<"holdings" | "transactions">("holdings");
+  const [editHolding, setEditHolding] = useState<EnrichedHolding | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"holdings" | "transactions">("holdings");
   const isPositive = totalPnL >= 0;
 
   async function handleDelete(h: EnrichedHolding) {
@@ -67,9 +67,9 @@ export default function PortfolioPage() {
             {/* KPI strip */}
             <div className="grid grid-cols-3 gap-3">
               {[
-                { label:"Total Value", value:formatCurrency(totalValue),                              color:"#4f8ef7" },
-                { label:"Total P&L",   value:`${isPositive?"+":""}${formatCurrency(totalPnL)}`,       color:isPositive?"#22d3a5":"#f75f7b" },
-                { label:"Return",      value:`${isPositive?"+":""}${totalPnLPct.toFixed(2)}%`,        color:isPositive?"#22d3a5":"#f75f7b" },
+                { label:"Total Value", value:formatCurrency(totalValue), color:"#4f8ef7" },
+                { label:"Total P&L", value:`${isPositive?"+":""}${formatCurrency(totalPnL)}`, color : isPositive ? "#22d3a5" : "#f75f7b" },
+                { label:"Return", value:`${isPositive?"+":""}${totalPnLPct.toFixed(2)}%`, color : isPositive ? "#22d3a5" : "#f75f7b" },
               ].map(({ label, value, color }) => (
                 <motion.div key={label} variants={fadeUp} className="glass-card p-3 sm:p-4">
                   <p className="text-[10px] uppercase tracking-widest mb-1" style={{ color: "#6b7fa8" }}>{label}</p>

@@ -1,24 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sidebar }             from "@/components/layout/Sidebar";
-import { TopNav }              from "@/components/layout/TopNav";
-import { TickerBar }           from "@/components/layout/TickerBar";
-import { GlobalMarketBar }     from "@/components/dashboard/GlobalMarketBar";
-import { OverallCard }         from "@/components/dashboard/OverallCard";
-import { CoinsCard }           from "@/components/dashboard/CoinsCard";
-import { HistoryCard }         from "@/components/dashboard/HistoryCard";
-import { StatsChart }          from "@/components/dashboard/StatsChart";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { TopNav } from "@/components/layout/TopNav";
+import { TickerBar } from "@/components/layout/TickerBar";
+import { GlobalMarketBar } from "@/components/dashboard/GlobalMarketBar";
+import { OverallCard } from "@/components/dashboard/OverallCard";
+import { CoinsCard } from "@/components/dashboard/CoinsCard";
+import { HistoryCard } from "@/components/dashboard/HistoryCard";
+import { StatsChart } from "@/components/dashboard/StatsChart";
 import { PortfolioAllocation } from "@/components/dashboard/PortfolioAllocation";
-import { MarketPulse }         from "@/components/dashboard/MarketPulse";
-import { AIInsights }          from "@/components/dashboard/AIInsights";
-import { SendModal }           from "@/components/modals/SendModal";
-import { ReceiveModal }        from "@/components/modals/ReceiveModal";
-import { CoinDetailModal }     from "@/components/modals/CoinDetailModal";
-import { useSession }          from "next-auth/react";
+import { MarketPulse } from "@/components/dashboard/MarketPulse";
+import { AIInsights } from "@/components/dashboard/AIInsights";
+import { SendModal } from "@/components/modals/SendModal";
+import { ReceiveModal } from "@/components/modals/ReceiveModal";
+import { CoinDetailModal } from "@/components/modals/CoinDetailModal";
+import { useSession } from "next-auth/react";
 import { useCoins, usePrefetchCoins } from "@/hooks/useCoins";
-import { useBinanceWebSocket }        from "@/hooks/useBinanceWebSocket";
-import { staggerContainer }           from "@/lib/utils";
+import { useBinanceWebSocket } from "@/hooks/useBinanceWebSocket";
+import { staggerContainer } from "@/lib/utils";
 
 export function DashboardClient() {
   const { data: session } = useSession();

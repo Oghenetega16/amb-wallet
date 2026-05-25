@@ -71,14 +71,14 @@ function SettingRow({
 }
 
 export default function SettingsPage() {
-  const [showBalance,   setShowBalance]   = useState(true);
-  const [biometrics,    setBiometrics]    = useState(true);
-  const [twoFA,         setTwoFA]         = useState(false);
-  const [priceAlerts,   setPriceAlerts]   = useState(true);
-  const [txAlerts,      setTxAlerts]      = useState(true);
-  const [darkMode,      setDarkMode]      = useState(true);
-  const [currency,      setCurrency]      = useState("USD");
-  const [saved,         setSaved]         = useState(false);
+  const [showBalance, setShowBalance] = useState(true);
+  const [biometrics, setBiometrics] = useState(true);
+  const [twoFA, setTwoFA] = useState(false);
+  const [priceAlerts, setPriceAlerts] = useState(true);
+  const [txAlerts, setTxAlerts] = useState(true);
+  const [darkMode, setDarkMode] = useState(true);
+  const [currency, setCurrency] = useState("USD");
+  const [saved, setSaved] = useState(false);
 
   function handleSave() {
     setSaved(true);
@@ -151,7 +151,7 @@ export default function SettingsPage() {
               <SettingRow icon={Globe} label="Display Currency"
                 sub="Fiat currency for portfolio values"
                 right={
-                  <select value={currency} onChange={(e) => setCurrency(e.target.value)}
+                  <select aria-label="Select currency" value={currency} onChange={(e) => setCurrency(e.target.value)}
                     className="text-xs rounded-lg px-2 py-1 outline-none border"
                     style={{ background: "#111f3a", borderColor: "rgba(255,255,255,0.1)", color: "#e8edf8" }}>
                     <option>USD</option><option>EUR</option><option>GBP</option><option>NGN</option>

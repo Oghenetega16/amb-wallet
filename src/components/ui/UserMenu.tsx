@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function UserMenu() {
   const { data: session, status } = useSession();
-  const [open,    setOpen]    = useState(false);
+  const [open, setOpen] = useState(false);
   const [signing, setSigning] = useState(false);
 
   if (status === "loading") {
@@ -79,7 +79,7 @@ export function UserMenu() {
               <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full"
                 style={{
                   background: plan === "premium" ? "rgba(247,201,72,0.15)" : "rgba(79,142,247,0.1)",
-                  color:      plan === "premium" ? "#f7c948"                : "#4f8ef7",
+                  color: plan === "premium" ? "#f7c948"                : "#4f8ef7",
                 }}>
                 {plan === "premium" ? "✦ Premium" : "Free Plan"}
               </span>

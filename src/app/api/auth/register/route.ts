@@ -7,8 +7,8 @@ export async function POST(req: NextRequest) {
     const { name, email, password } = await req.json();
 
     // Basic validation
-    if (!name?.trim())                  return NextResponse.json({ error: "Name is required." },           { status: 400 });
-    if (!email?.trim())                 return NextResponse.json({ error: "Email is required." },          { status: 400 });
+    if (!name?.trim()) return NextResponse.json({ error: "Name is required." }, { status: 400 });
+    if (!email?.trim()) return NextResponse.json({ error: "Email is required." }, { status: 400 });
     if (!password || password.length < 8) return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
 
     // Check for duplicate

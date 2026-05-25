@@ -59,7 +59,7 @@ function FearGreedGauge({ value }: { value: number }) {
         <circle cx={cx} cy={cy} r={3} fill={color} />
         {/* Value text */}
         <text x={cx} y={cy + 18} textAnchor="middle" fill={color}
-          fontSize={14} fontWeight={700} fontFamily="Poppins">
+          fontSize={14} fontWeight={700} fontFamily="DM Sans">
           {value}
         </text>
       </svg>

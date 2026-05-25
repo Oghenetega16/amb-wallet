@@ -22,9 +22,9 @@ function GoogleIcon() {
 
 const ERROR_MESSAGES: Record<string, string> = {
   CredentialsSignin: "Invalid email or password.",
-  OAuthSignin:       "Could not sign in with Google. Try again.",
-  OAuthCallback:     "OAuth callback error. Please retry.",
-  Default:           "Something went wrong. Please try again.",
+  OAuthSignin: "Could not sign in with Google. Try again.",
+  OAuthCallback: "OAuth callback error. Please retry.",
+  Default: "Something went wrong. Please try again.",
 };
 
 // Extracted the core logic into its own component
@@ -34,12 +34,12 @@ function SignInContent() {
   const callbackUrl = params.get("callbackUrl") ?? "/";
   const errorKey = params.get("error") ?? "";
 
-  const [email,       setEmail]       = useState("oghenetegasukuru@ambwallet.com");
-  const [password,    setPassword]    = useState("password123");
-  const [showPass,    setShowPass]    = useState(false);
-  const [loading,     setLoading]     = useState(false);
-  const [googleLoad,  setGoogleLoad]  = useState(false);
-  const [formError,   setFormError]   = useState("");
+  const [email, setEmail] = useState("oghenetegasukuru@ambwallet.com");
+  const [password, setPassword] = useState("password123");
+  const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [googleLoad, setGoogleLoad] = useState(false);
+  const [formError, setFormError] = useState("");
 
   const urlError = ERROR_MESSAGES[errorKey] ?? (errorKey ? ERROR_MESSAGES.Default : "");
 
